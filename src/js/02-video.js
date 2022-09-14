@@ -13,14 +13,12 @@ function localStorageCheck() {
 };
 
 function onTimeUpdate(e) {
+    if (e.percent === 1) {
+        return localStorage.removeItem(CURRENT_PLAYBACK_TIME);
+    };
     localStorage.setItem(CURRENT_PLAYBACK_TIME, e.seconds);
-}
-
-function onPlaybackEnd() {
-    localStorage.removeItem(CURRENT_PLAYBACK_TIME);
 }
 
 localStorageCheck();
 
 player.on("timeupdate", throttle(onTimeUpdate, 1000));
-player.on("ended", onPlaybackEnd);
